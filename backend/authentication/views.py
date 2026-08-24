@@ -58,33 +58,31 @@ def authentication_status(request):
 
 
 def google_login(request):
-    """
-    Starts the Google OAuth login process.
-    """
+    try:
+        state = secrets.token_urlsafe(32)
 
-    # 1. Generate a secure random state
-    state = secrets.token_urlsafe(32)
+        request.session["oauth_state"] = state
 
-    # 2. Save state in Django session
-    request.session["oauth_state"] = state
+        params = {
+            "client_id": GOOGLE_CLIENT_ID,
+            "redirect_uri": GOOGLE_REDIRECT_URI,
+            "response_type": "code",
+            "scope": GOOGLE_SCOPES,
+            "state": state,
+            "prompt": "select_account",
+        }
 
-    # 3. Prepare Google OAuth parameters
-    params = {
-        "client_id": GOOGLE_CLIENT_ID,
-        "redirect_uri": GOOGLE_REDIRECT_URI,
-        "response_type": "code",
-        "scope": GOOGLE_SCOPES,
-        "state": state,
-        "prompt": "select_account",
-    }
+        auth_url = f"{GOOGLE_AUTH_ENDPOINT}?{urlencode(params)}"
 
-    # 4. Build Google's authorization URL
-    auth_url = (
-        f"{GOOGLE_AUTH_ENDPOINT}?{urlencode(params)}"
-    )
+        return HttpResponseRedirect(auth_url)
 
-    # 5. Redirect browser to Google
-    return HttpResponseRedirect(auth_url)
+    except Exception:
+        logger.exception("Google login failed")
+
+        return JsonResponse(
+            {"error": "Google login failed"},
+            status=500
+        )
 
 
 def google_callback(request):
