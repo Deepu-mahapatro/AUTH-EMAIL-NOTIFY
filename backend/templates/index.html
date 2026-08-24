@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AuthFlow — Sign In</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+
+  <main class="auth-wrapper">
+    <section class="auth-card" aria-labelledby="welcome-heading">
+
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L4 5V11C4 16.05 7.41 20.74 12 22C16.59 20.74 20 16.05 20 11V5L12 2Z" stroke="#4F46E5" stroke-width="1.6" stroke-linejoin="round"/>
+            <rect x="9.4" y="10.6" width="5.2" height="4.4" rx="1" fill="#4F46E5"/>
+            <path d="M10.3 10.6V9.1C10.3 8.04 11.06 7.3 12 7.3C12.94 7.3 13.7 8.04 13.7 9.1V10.6" stroke="#4F46E5" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">AuthFlow</span>
+      </div>
+
+      <h1 id="welcome-heading" class="heading">Welcome Back</h1>
+      <p class="subtext">Sign in securely using your Google account</p>
+
+      <button type="button" class="google-btn" id="googleBtn" aria-label="Continue with Google">
+        <span class="google-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+            <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+          </svg>
+        </span>
+        <span class="google-btn-text">Continue with Google</span>
+      </button>
+
+      <p class="footnote">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2L4 5V11C4 16.05 7.41 20.74 12 22C16.59 20.74 20 16.05 20 11V5L12 2Z" stroke="#9CA3AF" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 12L11 14L15.5 9.5" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Secure. Simple. Seamless.</span>
+      </p>
+
+    </section>
+  </main>
+
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
