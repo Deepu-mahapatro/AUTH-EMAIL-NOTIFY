@@ -6,6 +6,13 @@ The project demonstrates a complete OAuth authentication workflow, including Goo
 
 Built for **educational and portfolio purposes**.
 
+## 🌐 Live Demo
+
+**Live Application:**  
+https://django-google-authentication.onrender.com/
+
+**Source Code:**  
+<https://github.com/Deepu-mahapatro/SECUREAUTH-EMAIL-OTP.git>
 
 
 ## 📌 Overview
@@ -132,7 +139,7 @@ A Django session is then created for the authenticated user.
 | Google OAuth 2.0      | User Authentication            |
 | Django Authentication | User Authentication Management |
 | Django Sessions       | Session Management             |
-| SQLite / PostgreSQL   | Database                       |
+| PostgreSQL   | Database   |
 | python-dotenv         | Environment Configuration      |
 | Postman               | API Testing                    |
 | Git & GitHub          | Version Control                |
