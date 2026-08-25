@@ -56,13 +56,39 @@ def authentication_status(request):
         "message": "Google authentication is not connected yet"
     })
 
-
 def google_login(request):
-    return JsonResponse({
-        "client_id_exists": bool(GOOGLE_CLIENT_ID),
-        "client_secret_exists": bool(GOOGLE_CLIENT_SECRET),
-        "redirect_uri": GOOGLE_REDIRECT_URI,
-    })
+
+    try:
+        state = secrets.token_urlsafe(32)
+        logger.info("STEP 1: state generated")
+
+        request.session["oauth_state"] = state
+        logger.info("STEP 2: session saved")
+
+        params = {
+            "client_id": GOOGLE_CLIENT_ID,
+            "redirect_uri": GOOGLE_REDIRECT_URI,
+            "response_type": "code",
+            "scope": GOOGLE_SCOPES,
+            "state": state,
+            "prompt": "select_account",
+        }
+
+        logger.info("STEP 3: OAuth parameters created")
+
+        auth_url = f"{GOOGLE_AUTH_ENDPOINT}?{urlencode(params)}"
+
+        logger.info("STEP 4: OAuth URL created")
+
+        return HttpResponseRedirect(auth_url)
+
+    except Exception:
+        logger.exception("Google login failed")
+
+        return JsonResponse(
+            {"error": "Google login failed"},
+            status=500
+        )
 
 def google_callback(request):
     """
