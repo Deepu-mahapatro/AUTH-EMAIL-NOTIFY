@@ -57,9 +57,20 @@ def authentication_status(request):
     })
 
 def google_login(request):
-    return HttpResponseRedirect(
-        "https://accounts.google.com/"
-    )
+    state = secrets.token_urlsafe(32)
+
+    params = {
+        "client_id": GOOGLE_CLIENT_ID,
+        "redirect_uri": GOOGLE_REDIRECT_URI,
+        "response_type": "code",
+        "scope": GOOGLE_SCOPES,
+        "state": state,
+        "prompt": "select_account",
+    }
+
+    auth_url = f"{GOOGLE_AUTH_ENDPOINT}?{urlencode(params)}"
+
+    return HttpResponseRedirect(auth_url)
 
 def google_callback(request):
     """
