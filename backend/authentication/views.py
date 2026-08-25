@@ -57,20 +57,31 @@ def authentication_status(request):
     })
 
 def google_login(request):
-    state = secrets.token_urlsafe(32)
+    try:
+        state = secrets.token_urlsafe(32)
 
-    params = {
-        "client_id": GOOGLE_CLIENT_ID,
-        "redirect_uri": GOOGLE_REDIRECT_URI,
-        "response_type": "code",
-        "scope": GOOGLE_SCOPES,
-        "state": state,
-        "prompt": "select_account",
-    }
+        request.session["oauth_state"] = state
 
-    auth_url = f"{GOOGLE_AUTH_ENDPOINT}?{urlencode(params)}"
+        params = {
+            "client_id": GOOGLE_CLIENT_ID,
+            "redirect_uri": GOOGLE_REDIRECT_URI,
+            "response_type": "code",
+            "scope": GOOGLE_SCOPES,
+            "state": state,
+            "prompt": "select_account",
+        }
 
-    return HttpResponseRedirect(auth_url)
+        auth_url = f"{GOOGLE_AUTH_ENDPOINT}?{urlencode(params)}"
+
+        return HttpResponseRedirect(auth_url)
+
+    except Exception:
+        logger.exception("Google login failed")
+
+        return JsonResponse(
+            {"error": "Google login failed"},
+            status=500
+        )
 
 def google_callback(request):
     """
