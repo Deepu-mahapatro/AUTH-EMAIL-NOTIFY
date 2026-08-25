@@ -57,7 +57,6 @@ def authentication_status(request):
     })
 
 def google_login(request):
-
     try:
         state = secrets.token_urlsafe(32)
         logger.info("STEP 1: state generated")
